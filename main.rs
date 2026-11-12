@@ -3,6 +3,7 @@ use std::str::FromStr;
 
 fn main() {
     precio_billete();
+    pension();
 }
 
 fn pide_dato<T: std::str::FromStr>(texto: &str, error: &str, validador: Option<fn(&T) -> bool>) -> T
@@ -59,4 +60,16 @@ fn precio_billete() {
     println!("Precio base: {}", raw_price);
     println!("descuento aplicado: {}", discount);
     println!(" El precio final del billete es: {}", net_price);
+}
+
+fn pension() {
+    const PENSION_MAX: f64 = 2300.0;
+    const PORCENTAJE: f64 = 0.8;
+    const NUM_PAGAS: f64 = 14.0;
+
+    let salario_bruto:f64 = pide_dato("Introduce tu salario bruto anual: ", "dato erroneo", None);
+    let mut pension = salario_bruto / NUM_PAGAS * PORCENTAJE;
+
+    if pension > PENSION_MAX {pension = PENSION_MAX;}
+    println!("Tu pensión es: {:.2}", pension);
 }
